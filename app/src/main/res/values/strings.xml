@@ -9,4 +9,7 @@
 
     <string name="hello_first_fragment">Hello list fragment</string>
     <string name="hello_second_fragment">Hello details fragment. Arg: %1$s</string>
+    <string name="posted_by">Posted By u/Microsoft_Azure</string>
+    <string name="elapsed_time_example">3 months ago</string>
+    <string name="post_title_example">Free Softwares advocates seek removal of Richard Stallman and entire FSF Board</string>
 </resources>

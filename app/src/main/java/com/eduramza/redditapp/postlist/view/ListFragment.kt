@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.eduramza.redditapp.Posts
 import com.eduramza.redditapp.R
+import com.eduramza.redditapp.domain.PostsDTO
 import com.eduramza.redditapp.postlist.view.adapter.PostAdapter
 
 class ListFragment : Fragment() {
@@ -35,14 +35,13 @@ class ListFragment : Fragment() {
         return view
     }
 
-    private fun getMockedList(): List<Posts> {
-        return listOf()
+    private fun getMockedList(): MutableList<PostsDTO> {
+        return mutableListOf()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         //TODO Implement clickListener
-
     }
 }

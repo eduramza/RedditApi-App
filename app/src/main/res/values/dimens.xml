@@ -1,4 +1,6 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="padding_default_post_item">10dp</dimen>
+    <dimen name="text_size_post_list_header">13sp</dimen>
+    <dimen name="margin_spacing_item_list_header">10dp</dimen>
 </resources>

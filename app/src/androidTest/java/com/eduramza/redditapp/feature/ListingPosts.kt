@@ -23,12 +23,10 @@ class ListingPosts {
     )
 
     @Test
-    fun shouldDisplayTitleApp(){
-        onView(withId(R.id.recyclerview_posts)).perform(
-            RecyclerViewActions.scrollTo<RecyclerView.ViewHolder>(
-                hasDescendant(withText("Title App here"))
-            )
-        )
+    fun shouldDisplayListOfPostsApp(){
+        onView(withId(R.id.tv_posted_by_info)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_elapsed_time)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_post_title)).check(matches(isDisplayed()))
     }
 
     @Test
