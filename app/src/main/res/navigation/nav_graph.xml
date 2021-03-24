@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.eduramza.redditapp.ListFragment"
+        android:name="com.eduramza.redditapp.postlist.view.ListFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_list">
 
