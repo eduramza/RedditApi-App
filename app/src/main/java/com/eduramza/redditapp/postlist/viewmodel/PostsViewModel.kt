@@ -7,8 +7,8 @@ import com.eduramza.redditapp.postlist.repository.PostsRepository
 
 class PostsViewModel(private val repository: PostsRepository) {
 
-    private val _posts = MutableLiveData<PostsDTO>()
-    val posts: LiveData<PostsDTO>
+    private val _posts = MutableLiveData<Result<List<PostsDTO>>>()
+    val posts: LiveData<Result<List<PostsDTO>>>
         get() =_posts
 
     init {
