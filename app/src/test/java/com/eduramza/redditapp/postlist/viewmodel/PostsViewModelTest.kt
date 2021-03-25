@@ -1,9 +1,8 @@
 package com.eduramza.redditapp.postlist.viewmodel
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.eduramza.redditapp.domain.PostsDTO
 import com.eduramza.redditapp.postlist.repository.PostsRepository
-import com.eduramza.redditapp.utils.MainCoroutineScopeRule
+import com.eduramza.redditapp.utils.BaseTest
 import com.eduramza.redditapp.utils.getValueForTest
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
@@ -13,17 +12,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.Rule
 import org.junit.Test
 import java.lang.RuntimeException
 
 @ExperimentalCoroutinesApi
-class PostsViewModelTest {
-    @get:Rule
-    val coroutineTestRule = MainCoroutineScopeRule()
-
-    @get:Rule
-    val instantTestExecutorRule = InstantTaskExecutorRule()
+class PostsViewModelTest : BaseTest() {
 
     private val repository: PostsRepository = mock()
     private val postsListMock = mock<List<PostsDTO>>()
