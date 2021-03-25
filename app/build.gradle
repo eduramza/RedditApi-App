@@ -52,6 +52,10 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
+    //Jetpack Lifecycle
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle"
+
     testImplementation 'junit:junit:4.+'
     testImplementation "androidx.arch.core:core-testing:$arch_core"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito"

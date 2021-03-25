@@ -24,17 +24,15 @@ class PostsViewModelTest {
     @get:Rule
     val instantTestExecutorRule = InstantTaskExecutorRule()
 
-    private val viewModel : PostsViewModel
     private val repository: PostsRepository = mock()
     private val postsListMock = mock<List<PostsDTO>>()
     private val expected = Result.success(postsListMock)
 
-    init {
-        viewModel = PostsViewModel(repository)
-    }
-
     @Test
-    fun shouldReturnPostsFromRepository(){
+    fun shouldReturnPostsFromRepository() = runBlockingTest {
+
+        val viewModel = successCaseInitialize()
+
         viewModel.posts.getValueForTest()
 
         verify(repository).fetchPosts()
@@ -42,13 +40,21 @@ class PostsViewModelTest {
 
     @Test
     fun emitValueFromLiveDataFromRepository() = runBlockingTest {
-        whenever(repository.fetchPosts()).thenReturn(
-            flow {
-                emit(expected)
-            }
-        )
+        val viewModel = successCaseInitialize()
 
         assertEquals(expected, viewModel.posts.getValueForTest())
+    }
+
+    private fun successCaseInitialize(): PostsViewModel {
+        runBlocking {
+            whenever(repository.fetchPosts()).thenReturn(
+                flow {
+                    emit(expected)
+                }
+            )
+        }
+
+        return PostsViewModel(repository)
     }
 
 }
