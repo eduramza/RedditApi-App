@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
-import java.lang.RuntimeException
 
 @ExperimentalCoroutinesApi
 class PostsViewModelTest : BaseTest() {
@@ -21,7 +20,6 @@ class PostsViewModelTest : BaseTest() {
     private val repository: PostsRepository = mock()
     private val postsListMock = mock<List<PostsDTO>>()
     private val expected = Result.success(postsListMock)
-    private val exception = RuntimeException("Something wrong")
 
     @Test
     fun shouldReturnPostsFromRepository() = runBlockingTest {
@@ -43,20 +41,19 @@ class PostsViewModelTest : BaseTest() {
     @Test
     fun emitErrorWhenRepositoryReturn() = runBlockingTest{
         val viewModel = mockErrorResponse()
-        assertEquals(exception, viewModel.posts.getValueForTest()!!.exceptionOrNull())
+        assertEquals(genericError, viewModel.posts.getValueForTest()!!.exceptionOrNull())
     }
 
     private fun mockErrorResponse(): PostsViewModel {
         runBlocking {
             whenever(repository.fetchPosts()).thenReturn(
                 flow {
-                    emit(Result.failure<List<PostsDTO>>(exception))
+                    emit(Result.failure<List<PostsDTO>>(genericError))
                 }
             )
         }
 
-        val viewModel = PostsViewModel(repository)
-        return viewModel
+        return PostsViewModel(repository)
     }
 
     private fun successCaseInitialize(): PostsViewModel {

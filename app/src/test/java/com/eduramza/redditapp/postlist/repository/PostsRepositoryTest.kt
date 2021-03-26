@@ -5,10 +5,7 @@ import com.eduramza.redditapp.domain.PostsResponse
 import com.eduramza.redditapp.postlist.mapper.PostsMapper
 import com.eduramza.redditapp.postlist.service.RedditServiceApi
 import com.eduramza.redditapp.utils.BaseTest
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
+import com.nhaarman.mockitokotlin2.*
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -25,7 +22,7 @@ class PostsRepositoryTest: BaseTest(){
     private val api: RedditServiceApi = mock()
 
     @Test
-    fun shouldCallApi() = runBlockingTest {
+    fun shouldCallApiAndMapper() = runBlockingTest {
 
         mockSuccessResult()
 
@@ -36,11 +33,45 @@ class PostsRepositoryTest: BaseTest(){
     }
 
     @Test
-    fun shouldReturnObjectMapper() = runBlockingTest {
+    fun shouldCallObjectMapper() = runBlockingTest {
 
         mockSuccessResult()
 
         assertEquals(Result.success(postsDTO), repository.fetchPosts().first())
+    }
+
+    @Test
+    fun shouldReturnErrorWhenApiCallInTroubleAndTheMapperShouldNotBeCalled() = runBlockingTest {
+        mockApiError()
+
+        val result = repository.fetchPosts().first().exceptionOrNull()?.message
+
+        verify(mapper, times(0)).mapperResponseToView(any())
+        assertEquals(genericError.message, result)
+    }
+
+    @Test
+    fun shouldReturnExceptionWithMapperWasProblemAndApiMustBeCalled() = runBlockingTest {
+        mockMapperError()
+
+        val result = repository.fetchPosts().first().exceptionOrNull()?.message
+
+        verify(api).getListOfPost()
+        assertEquals(genericError.message, result)
+    }
+
+    private fun mockApiError() {
+        whenever(mapper.mapperResponseToView(postsApiResponse)).thenReturn(postsDTO)
+        whenever(api.getListOfPost()).thenThrow(genericError)
+
+        repository = PostsRepositoryImpl(api, mapper)
+    }
+
+    private fun mockMapperError() {
+        whenever(api.getListOfPost()).thenReturn(postsApiResponse)
+        whenever(mapper.mapperResponseToView(any())).thenThrow(genericError)
+
+        repository = PostsRepositoryImpl(api, mapper)
     }
 
     private fun mockSuccessResult() {
