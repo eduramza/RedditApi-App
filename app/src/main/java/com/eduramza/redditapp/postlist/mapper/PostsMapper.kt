@@ -6,6 +6,11 @@ import com.eduramza.redditapp.domain.PostsResponse
 class PostsMapper {
 
     fun mapperResponseToView(response: PostsResponse): List<PostsDTO>{
-        return emptyList()
+        return response.data.children.map {
+            PostsDTO(title = "",
+                author = "",
+                elapsedTime = "",
+                thumbnailUri = "")
+        }
     }
 }

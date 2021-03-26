@@ -33,7 +33,7 @@ class PostsRepositoryTest: BaseTest(){
     }
 
     @Test
-    fun shouldCallObjectMapper() = runBlockingTest {
+    fun shouldCallObjectMapperAndReturnNewListItemToViewModel() = runBlockingTest {
 
         mockSuccessResult()
 
