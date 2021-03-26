@@ -33,4 +33,5 @@ ext {
     mockito = '2.1.0'
     arch_core = '2.1.0'
     lifecycle = '2.3.0'
+    koin_version = '2.2.2'
 }

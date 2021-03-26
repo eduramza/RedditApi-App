@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
+import org.mockito.ArgumentMatchers.anyString
 
 @ExperimentalCoroutinesApi
 class PostsViewModelTest : BaseTest() {
@@ -28,7 +29,7 @@ class PostsViewModelTest : BaseTest() {
 
         viewModel.posts.getValueForTest()
 
-        verify(repository).fetchPosts()
+        verify(repository).fetchPosts(anyString())
     }
 
     @Test
@@ -46,7 +47,7 @@ class PostsViewModelTest : BaseTest() {
 
     private fun mockErrorResponse(): PostsViewModel {
         runBlocking {
-            whenever(repository.fetchPosts()).thenReturn(
+            whenever(repository.fetchPosts(anyString())).thenReturn(
                 flow {
                     emit(Result.failure<List<PostsDTO>>(genericError))
                 }
@@ -58,7 +59,7 @@ class PostsViewModelTest : BaseTest() {
 
     private fun successCaseInitialize(): PostsViewModel {
         runBlocking {
-            whenever(repository.fetchPosts()).thenReturn(
+            whenever(repository.fetchPosts(anyString())).thenReturn(
                 flow {
                     emit(expected)
                 }

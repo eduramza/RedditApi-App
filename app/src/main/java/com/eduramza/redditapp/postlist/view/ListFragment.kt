@@ -5,16 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.eduramza.redditapp.R
 import com.eduramza.redditapp.domain.PostsDTO
 import com.eduramza.redditapp.postlist.view.adapter.PostAdapter
+import com.eduramza.redditapp.postlist.viewmodel.PostsViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class ListFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
+    private val viewModel: PostsViewModel by viewModel()
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +36,8 @@ class ListFragment : Fragment() {
             }
         }
 
+        setupObservers()
+
         return view
     }
 
@@ -43,5 +49,15 @@ class ListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //TODO Implement clickListener
+    }
+
+    private fun setupObservers(){
+        viewModel.posts.observe(this as LifecycleOwner, { posts ->
+            if (posts.isSuccess && posts.getOrNull() != null){
+                //TODO IMPLEMENT ADAPTER
+            } else {
+                //TODO ERROR SCREEN
+            }
+        } )
     }
 }

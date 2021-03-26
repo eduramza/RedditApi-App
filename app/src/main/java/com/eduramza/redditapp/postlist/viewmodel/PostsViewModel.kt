@@ -7,7 +7,7 @@ import com.eduramza.redditapp.postlist.repository.PostsRepository
 class PostsViewModel(private val repository: PostsRepository) : ViewModel(){
 
     private val _posts = liveData {
-        emitSource(repository.fetchPosts().asLiveData())
+        emitSource(repository.fetchPosts("programming").asLiveData())
     }
     val posts: LiveData<Result<List<PostsDTO>>>
         get() =_posts
