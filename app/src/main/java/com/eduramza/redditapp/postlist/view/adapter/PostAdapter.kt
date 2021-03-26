@@ -1,5 +1,7 @@
 package com.eduramza.redditapp.postlist.view.adapter
 
+import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,11 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.eduramza.redditapp.R
 import com.eduramza.redditapp.domain.PostsDTO
 
 class PostAdapter(
     private val postList: MutableList<PostsDTO>,
+    private val context: Context,
     private val listener: (String) -> Unit) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,6 +30,13 @@ class PostAdapter(
         holder.postedBy.text = item.author
         holder.elapsedTime.text = item.elapsedTime
         holder.postTitle.text = item.title
+        if (item.thumbnailUrl != "null"){
+            Log.d("ImageView", item.thumbnailUrl)
+            Glide.with(context)
+                .load(item.thumbnailUrl)
+                .placeholder(R.drawable.ic_launcher_background)
+                .into(holder.postMedia)
+        }
     }
 
     override fun getItemCount() = postList.size

@@ -31,11 +31,11 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.recyclerview_posts)
-        adapter = PostAdapter(mutableListOf()) {
+        adapter = PostAdapter(mutableListOf(), requireContext()) {
             //TODO Add action to click list item
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
         setupObservers()
