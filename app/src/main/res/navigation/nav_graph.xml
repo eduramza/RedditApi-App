@@ -12,17 +12,17 @@
         tools:layout="@layout/list_fragment">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/open_details_fragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.eduramza.redditapp.SecondFragment"
+        android:id="@+id/detailsFragment"
+        android:name="com.eduramza.redditapp.postdetails.DetailsFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_post_detail">
+        tools:layout="@layout/details_post_fragment">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            android:id="@+id/back_to_list_fragment"
             app:destination="@id/listFragment" />
     </fragment>
 </navigation>

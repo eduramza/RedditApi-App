@@ -32,11 +32,11 @@
         app:layout_constraintTop_toBottomOf="@id/tv_posted_by_info"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/mrg_top_default_title"
         android:textColor="@color/black"
         android:text="@string/post_title_example"
         android:textStyle="bold"
-        android:textSize="17sp" />
+        android:textSize="@dimen/title_text_size" />
 
     <ImageView
         android:id="@+id/img_thumbnail"

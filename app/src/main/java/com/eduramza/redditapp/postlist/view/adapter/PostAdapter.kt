@@ -1,7 +1,6 @@
 package com.eduramza.redditapp.postlist.view.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -9,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.eduramza.redditapp.R
 import com.eduramza.redditapp.databinding.PostItemBinding
-import com.eduramza.redditapp.domain.PostsDTO
+import com.eduramza.redditapp.domain.list.PostsDTO
 
 class PostAdapter(
     private val postList: MutableList<PostsDTO>,
@@ -32,7 +31,7 @@ class PostAdapter(
             binding.tvElapsedTime.text = item.elapsedTime
             binding.tvPostTitle.text = item.title
             bindImageView(item, binding.imgThumbnail)
-            binding.containerPostItem.setOnClickListener { listener("a") }
+            binding.containerPostItem.setOnClickListener { listener(item.permalink) }
         }
     }
 

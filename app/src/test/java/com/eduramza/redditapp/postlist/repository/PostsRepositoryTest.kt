@@ -1,7 +1,7 @@
 package com.eduramza.redditapp.postlist.repository
 
-import com.eduramza.redditapp.domain.PostsDTO
-import com.eduramza.redditapp.domain.PostsResponse
+import com.eduramza.redditapp.domain.list.PostsDTO
+import com.eduramza.redditapp.domain.list.PostsResponse
 import com.eduramza.redditapp.postlist.mapper.PostsMapper
 import com.eduramza.redditapp.service.RedditServiceApi
 import com.eduramza.redditapp.utils.BaseTest

@@ -1,4 +1,4 @@
-package com.eduramza.redditapp.domain
+package com.eduramza.redditapp.domain.list
 
 
 import com.google.gson.annotations.SerializedName

@@ -1,6 +1,6 @@
 package com.eduramza.redditapp.postlist.repository
 
-import com.eduramza.redditapp.domain.PostsDTO
+import com.eduramza.redditapp.domain.list.PostsDTO
 import com.eduramza.redditapp.postlist.PostListGenericException
 import com.eduramza.redditapp.postlist.mapper.PostsMapper
 import com.eduramza.redditapp.service.RedditServiceApi

@@ -8,10 +8,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.eduramza.redditapp.R
 import com.eduramza.redditapp.databinding.ListFragmentBinding
-import com.eduramza.redditapp.domain.PostsDTO
+import com.eduramza.redditapp.domain.list.PostsDTO
 import com.eduramza.redditapp.postlist.view.adapter.PostAdapter
 import com.eduramza.redditapp.postlist.viewmodel.PostsViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -34,7 +33,7 @@ class ListFragment : Fragment() {
 
         adapter = PostAdapter(mutableListOf(), requireContext()) {
             //TODO Add action to click list item
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            findNavController().navigate(R.id.open_details_fragment)
         }
         binding.recyclerviewPosts.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerviewPosts.adapter = adapter

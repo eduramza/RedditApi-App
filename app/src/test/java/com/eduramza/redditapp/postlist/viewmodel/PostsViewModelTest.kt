@@ -1,6 +1,6 @@
 package com.eduramza.redditapp.postlist.viewmodel
 
-import com.eduramza.redditapp.domain.PostsDTO
+import com.eduramza.redditapp.domain.list.PostsDTO
 import com.eduramza.redditapp.postlist.repository.PostsRepository
 import com.eduramza.redditapp.utils.BaseTest
 import com.eduramza.redditapp.utils.getValueForTest
