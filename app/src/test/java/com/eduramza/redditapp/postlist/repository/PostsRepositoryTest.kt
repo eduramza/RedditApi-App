@@ -9,6 +9,7 @@ import com.nhaarman.mockitokotlin2.*
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyString
@@ -62,21 +63,24 @@ class PostsRepositoryTest: BaseTest(){
     }
 
     private fun mockApiError() {
+        runBlocking {
+            whenever(api.getListOfPost(anyString())).thenThrow(genericError)
+        }
         whenever(mapper.mapperResponseToView(postsApiResponse)).thenReturn(postsDTO)
-        whenever(api.getListOfPost(anyString())).thenThrow(genericError)
+
 
         repository = PostsRepositoryImpl(api, mapper)
     }
 
     private fun mockMapperError() {
-        whenever(api.getListOfPost(anyString())).thenReturn(postsApiResponse)
+        runBlocking { whenever(api.getListOfPost(anyString())).thenReturn(postsApiResponse) }
         whenever(mapper.mapperResponseToView(any())).thenThrow(genericError)
 
         repository = PostsRepositoryImpl(api, mapper)
     }
 
     private fun mockSuccessResult() {
-        whenever(api.getListOfPost(anyString())).thenReturn(postsApiResponse)
+        runBlocking { whenever(api.getListOfPost(anyString())).thenReturn(postsApiResponse) }
         whenever(mapper.mapperResponseToView(postsApiResponse)).thenReturn(postsDTO)
 
         repository = PostsRepositoryImpl(api, mapper)
