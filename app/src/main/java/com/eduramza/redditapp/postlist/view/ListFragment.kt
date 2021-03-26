@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.eduramza.redditapp.R
@@ -18,46 +18,37 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class ListFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: PostAdapter
     private val viewModel: PostsViewModel by viewModel()
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_list, container, false)
-
-        recyclerView = view.findViewById(R.id.recyclerview_posts)
-
-        with(recyclerView){
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = PostAdapter(getMockedList()) {
-                //TODO Add action to click list item
-                findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-            }
-        }
-
-        setupObservers()
-
-        return view
-    }
-
-    private fun getMockedList(): MutableList<PostsDTO> {
-        return mutableListOf()
+        return inflater.inflate(R.layout.list_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        recyclerView = view.findViewById(R.id.recyclerview_posts)
+        adapter = PostAdapter(mutableListOf()) {
+            //TODO Add action to click list item
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        }
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = adapter
 
-        //TODO Implement clickListener
+        setupObservers()
     }
 
     private fun setupObservers(){
         viewModel.posts.observe(this as LifecycleOwner, { posts ->
             if (posts.isSuccess && posts.getOrNull() != null){
-                //TODO IMPLEMENT ADAPTER
+                adapter.updateList(posts.getOrNull()!! as MutableList<PostsDTO>)
             } else {
                 //TODO ERROR SCREEN
             }
         } )
     }
+
 }
