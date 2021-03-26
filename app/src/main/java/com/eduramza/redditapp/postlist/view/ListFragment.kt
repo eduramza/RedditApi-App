@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.eduramza.redditapp.R
+import com.eduramza.redditapp.databinding.ListFragmentBinding
 import com.eduramza.redditapp.domain.PostsDTO
 import com.eduramza.redditapp.postlist.view.adapter.PostAdapter
 import com.eduramza.redditapp.postlist.viewmodel.PostsViewModel
@@ -17,7 +18,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class ListFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PostAdapter
     private val viewModel: PostsViewModel by viewModel()
 
@@ -30,13 +30,14 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView = view.findViewById(R.id.recyclerview_posts)
+        val binding = ListFragmentBinding.bind(view)
+
         adapter = PostAdapter(mutableListOf(), requireContext()) {
             //TODO Add action to click list item
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = adapter
+        binding.recyclerviewPosts.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerviewPosts.adapter = adapter
 
         setupObservers()
     }
