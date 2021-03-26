@@ -5,6 +5,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface RedditServiceApi {
-    @GET("/{topic}")
-    fun getListOfPost(@Path("topic") topic: String): PostsResponse
+    @GET("r/{topic}.json")
+    suspend fun getListOfPost(@Path("topic") topic: String): PostsResponse
 }
