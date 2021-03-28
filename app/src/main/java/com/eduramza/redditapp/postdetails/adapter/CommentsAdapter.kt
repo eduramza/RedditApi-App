@@ -5,6 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.eduramza.redditapp.databinding.CommentItemBinding
 import com.eduramza.redditapp.domain.detail.DetailRootResponse.PostDetailData
+import com.eduramza.redditapp.domain.detail.Replies
+import com.google.gson.internal.LinkedTreeMap
+import java.util.ArrayList
 
 class CommentsAdapter(
     private val comments: MutableList<PostDetailData.Data.Children>,
@@ -18,18 +21,34 @@ class CommentsAdapter(
     }
 
     override fun onBindViewHolder(holder: CommentsAdapter.ViewHolder, position: Int) {
-        val comment = comments[position].data
-        //val replies = comment.replies.data.children[0].data
 
         with(holder){
+            val comment = comments[position].data
+            if (comment.replies !is String){
+
+                val (authorR, bodyR) = getReplies(comment)
+
+                binding.tvCommentReplyAuthor.text = authorR
+                binding.tvCommentReplyBody.text = bodyR
+            }
+
             binding.tvCommentAuthorAndElapsed.text = comment.author
             binding.tvCommentBody.text = comment.body
-           // binding.tvCommentReplyAuthor.text = replies.author
-           // binding.tvCommentReplyBody.text = replies.body
             binding.tvRedirectToThread.setOnClickListener {
-                detailListener("${comment.permalink}${comment.id}")
+                detailListener(comment.permalink)
             }
         }
+    }
+
+    private fun getReplies(comment: PostDetailData.Data.Children.PostDetail): Pair<String, String> {
+        val lv1 = comment.replies as LinkedTreeMap<Object, Object>
+        val lv2 = lv1.get("data") as LinkedTreeMap<Object, Object>
+        val lv3 = lv2.get("children") as ArrayList<Replies.Data.Children>
+        val children = lv3[0] as LinkedTreeMap<Object, Object>
+        val children1 = children.get("data") as LinkedTreeMap<Object, Object>
+        val authorT = children1.get("author").toString()
+        val bodyT = children1.get("body").toString()
+        return Pair(authorT, bodyT)
     }
 
     override fun getItemCount() = comments.size
@@ -41,4 +60,5 @@ class CommentsAdapter(
     }
 
     inner class ViewHolder(val binding: CommentItemBinding): RecyclerView.ViewHolder(binding.root)
+
 }

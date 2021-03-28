@@ -4,10 +4,12 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+const val BASE_URL = "https://www.reddit.com/"
+
 class RetrofitConfig {
     companion object {
 
-        private const val BASE_URL = "https://www.reddit.com/"
+
         private val httpClient = OkHttpClient.Builder().addInterceptor(LoggingInterceptor())
 
         fun createRetrofitService(): RedditServiceApi =

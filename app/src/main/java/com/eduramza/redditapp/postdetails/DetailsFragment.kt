@@ -18,6 +18,7 @@ import com.eduramza.redditapp.downloadImageFromUrl
 import com.eduramza.redditapp.postdetails.adapter.CommentsAdapter
 import com.eduramza.redditapp.postdetails.viewmodel.DetailViewModel
 import com.eduramza.redditapp.postlist.view.ListFragmentArgs
+import com.eduramza.redditapp.service.BASE_URL
 
 const val KIND_POST_DETAIL_HEADER = "t3"
 
@@ -47,7 +48,10 @@ class DetailsFragment : Fragment() {
 
     private fun setupRecyclerView() {
         commentsAdapter = CommentsAdapter(mutableListOf()) {
-            val browser = Intent(Intent.ACTION_VIEW, Uri.parse(it))
+            val browser = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(
+                    "${BASE_URL}${it.substring(1)}"))
             activity?.startActivity(browser)
         }
         _binding?.let {
