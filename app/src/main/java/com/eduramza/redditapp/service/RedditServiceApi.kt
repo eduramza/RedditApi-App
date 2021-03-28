@@ -1,6 +1,6 @@
 package com.eduramza.redditapp.service
 
-import com.eduramza.redditapp.domain.detail.PostDetailResponse
+import com.eduramza.redditapp.domain.detail.DetailRootResponse
 import com.eduramza.redditapp.domain.list.ListPostResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -11,5 +11,5 @@ interface RedditServiceApi {
     suspend fun getListOfPost(@Path("topic") topic: String): ListPostResponse
 
     @GET("")
-    suspend fun getPostDetails(@Url permalink: String): PostDetailResponse
+    suspend fun getPostDetails(@Url permalink: String): DetailRootResponse
 }

@@ -1,6 +1,6 @@
 package com.eduramza.redditapp.postdetails.repository
 
-import com.eduramza.redditapp.domain.detail.PostDetailResponse
+import com.eduramza.redditapp.domain.detail.DetailRootResponse
 import com.eduramza.redditapp.postlist.PostListGenericException
 import com.eduramza.redditapp.service.RedditServiceApi
 import com.eduramza.redditapp.setCorrectJsonLink
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flow
 
 class DetailRepositoryImpl(private val api: RedditServiceApi) : DetailRepository {
 
-    override suspend fun fetchSelectedPost(permalink: String): Flow<Result<PostDetailResponse>> {
+    override suspend fun fetchSelectedPost(permalink: String): Flow<Result<DetailRootResponse>> {
         return flow {
             emit(Result.success(api.getPostDetails(permalink.setCorrectJsonLink())))
         }.catch { ex ->
