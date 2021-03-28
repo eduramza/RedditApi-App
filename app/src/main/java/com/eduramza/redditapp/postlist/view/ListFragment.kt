@@ -32,8 +32,8 @@ class ListFragment : Fragment() {
         val binding = ListFragmentBinding.bind(view)
 
         adapter = PostAdapter(mutableListOf(), requireContext()) {
-            //TODO Add action to click list item
-            findNavController().navigate(R.id.open_details_fragment)
+            val action = ListFragmentDirections.openDetailsFragment(it)
+            findNavController().navigate(action)
         }
         binding.recyclerviewPosts.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerviewPosts.adapter = adapter

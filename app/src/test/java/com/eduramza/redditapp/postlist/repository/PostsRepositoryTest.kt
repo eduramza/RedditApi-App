@@ -1,7 +1,7 @@
 package com.eduramza.redditapp.postlist.repository
 
+import com.eduramza.redditapp.domain.list.ListPostResponse
 import com.eduramza.redditapp.domain.list.PostsDTO
-import com.eduramza.redditapp.domain.list.PostsResponse
 import com.eduramza.redditapp.postlist.mapper.PostsMapper
 import com.eduramza.redditapp.service.RedditServiceApi
 import com.eduramza.redditapp.utils.BaseTest
@@ -18,7 +18,7 @@ import org.mockito.ArgumentMatchers.anyString
 class PostsRepositoryTest: BaseTest(){
 
     private val mapper: PostsMapper = mock()
-    private val postsApiResponse: PostsResponse = mock()
+    private val postsApiResponse: ListPostResponse = mock()
     private val postsDTO: List<PostsDTO> = mock()
     private lateinit var repository: PostsRepository
     private val api: RedditServiceApi = mock()

@@ -19,7 +19,7 @@ class PostsRepositoryImpl(
             emit(Result.success(mapper.mapperResponseToView(result)))
         }.catch {
             emit(Result.failure(
-                PostListGenericException("there was a problem with the listing of posts")
+                PostListGenericException("${it.message} There was a problem with the listing of posts")
             ))
         }
     }

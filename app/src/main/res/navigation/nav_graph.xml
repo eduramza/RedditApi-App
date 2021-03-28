@@ -11,6 +11,11 @@
         android:label="@string/first_fragment_label"
         tools:layout="@layout/list_fragment">
 
+        <argument
+            android:name="permalink"
+            app:argType="string"
+            android:defaultValue=""/>
+
         <action
             android:id="@+id/open_details_fragment"
             app:destination="@id/detailsFragment" />
@@ -20,6 +25,11 @@
         android:name="com.eduramza.redditapp.postdetails.DetailsFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/details_post_fragment">
+
+        <argument
+            android:name="permalink"
+            app:argType="string"
+            android:defaultValue=""/>
 
         <action
             android:id="@+id/back_to_list_fragment"
