@@ -48,7 +48,7 @@ class DetailsFragment : Fragment() {
     private fun setupRecyclerView() {
         commentsAdapter = CommentsAdapter(mutableListOf()) {
             val browser = Intent(Intent.ACTION_VIEW, Uri.parse(it))
-            startActivity(browser)
+            activity?.startActivity(browser)
         }
         _binding?.let {
             it.rvComments.layoutManager = LinearLayoutManager(requireContext())
@@ -62,24 +62,24 @@ class DetailsFragment : Fragment() {
         viewModel.postDetail.observe(this as LifecycleOwner, {
             if (it.isSuccess){
                 val resultHeader = it.getOrNull()!![0].data.children
-                updateUI(resultHeader)
+                val resultBody = it.getOrNull()!![1].data.children
+
+                updatePostBodyUI(resultHeader)
+                commentsAdapter.updateList(resultBody
+                        as MutableList<DetailRootResponse.PostDetailData.Data.Children>)
             } else {
                 //TODO THROWN ERROR
             }
         })
     }
 
-    private fun updateUI(result: List<DetailRootResponse.PostDetailData.Data.Children>) {
-        result.forEach {
-            if (it.kind == KIND_POST_DETAIL_HEADER){
-                _binding?.tvDetailTitle?.text = it.data.title
-                _binding?.tvDetailAuthorAndElapsed?.text = it.data.author
-                _binding?.imgDetailThumbnail?.downloadImageFromUrl(
-                    requireContext(), it.data.thumbnail)
-                return@forEach
-            }
+    private fun updatePostBodyUI(result: List<DetailRootResponse.PostDetailData.Data.Children>) {
+        if( result[0].kind == KIND_POST_DETAIL_HEADER){
+            _binding?.tvDetailTitle?.text = result[0].data.title
+            _binding?.tvDetailAuthorAndElapsed?.text = result[0].data.author
+            _binding?.imgDetailThumbnail?.downloadImageFromUrl(
+                requireContext(), result[0].data.thumbnail)
         }
-        commentsAdapter.updateList(result as MutableList<DetailRootResponse.PostDetailData.Data.Children>)
     }
 
 }

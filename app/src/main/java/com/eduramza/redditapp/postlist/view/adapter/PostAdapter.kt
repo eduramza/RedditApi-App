@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.eduramza.redditapp.R
 import com.eduramza.redditapp.databinding.PostItemBinding
 import com.eduramza.redditapp.domain.list.PostsDTO
+import com.eduramza.redditapp.downloadImageFromUrl
 
 class PostAdapter(
     private val postList: MutableList<PostsDTO>,
@@ -30,20 +31,8 @@ class PostAdapter(
             binding.tvPostedByInfo.text = item.author
             binding.tvElapsedTime.text = item.elapsedTime
             binding.tvPostTitle.text = item.title
-            bindImageView(item, binding.imgThumbnail)
+            binding.imgThumbnail.downloadImageFromUrl(context, item.thumbnailUrl)
             binding.containerPostItem.setOnClickListener { listener(item.permalink) }
-        }
-    }
-
-    private fun bindImageView(
-        item: PostsDTO,
-        view: ImageView
-    ) {
-        if (item.thumbnailUrl != "null") {
-            Glide.with(context)
-                .load(item.thumbnailUrl)
-                .placeholder(R.drawable.ic_launcher_background)
-                .into(view)
         }
     }
 
