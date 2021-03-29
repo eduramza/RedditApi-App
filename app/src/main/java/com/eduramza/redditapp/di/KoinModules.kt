@@ -11,7 +11,7 @@ import com.eduramza.redditapp.postlist.viewmodel.PostsViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val listModule = module {
+val appModule = module {
     single { PostsMapper() }
     single { RetrofitConfig.createRetrofitService() }
     single<PostsRepository> { PostsRepositoryImpl(get(), get()) }

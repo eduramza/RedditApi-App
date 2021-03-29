@@ -16,6 +16,10 @@ class PostsViewModel(private val repository: PostsRepository) : ViewModel(){
     val loading: LiveData<Boolean>
         get() = _loading
 
+    private val _next = MutableLiveData<Result<List<PostsDTO>>>()
+    val next: LiveData<Result<List<PostsDTO>>>
+        get() =_posts
+
     fun getPostList(q: String){
         viewModelScope.launch {
             _loading.postValue(true)
@@ -24,6 +28,15 @@ class PostsViewModel(private val repository: PostsRepository) : ViewModel(){
                     _posts.value = it
                 }
             _loading.postValue(false)
+        }
+    }
+
+    fun getNextPage(topic: String, afterPage: String) {
+        viewModelScope.launch {
+            repository.fetchNextPage(topic, afterPage)
+                    .collect{
+                        _next.postValue(it)
+                    }
         }
     }
 

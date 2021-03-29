@@ -1,7 +1,7 @@
 package com.eduramza.redditapp
 
 import android.app.Application
-import com.eduramza.redditapp.di.listModule
+import com.eduramza.redditapp.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -13,7 +13,7 @@ class RedditApplication: Application() {
         startKoin {
             androidLogger()
             androidContext(this@RedditApplication)
-            modules(listOf(listModule))
+            modules(listOf(appModule))
         }
     }
 }

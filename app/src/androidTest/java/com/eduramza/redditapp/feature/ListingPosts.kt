@@ -1,15 +1,25 @@
 package com.eduramza.redditapp.feature
 
-import androidx.recyclerview.widget.RecyclerView
+import android.view.View
+import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.eduramza.redditapp.MainActivity
 import com.eduramza.redditapp.R
+import com.eduramza.redditapp.service.idlingResource
+import com.schibsted.spain.barista.assertion.BaristaRecyclerViewAssertions.assertRecyclerViewItemCount
+import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
+import com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
+import org.hamcrest.CoreMatchers.allOf
+import org.hamcrest.Description
+import org.hamcrest.Matcher
+import org.hamcrest.TypeSafeMatcher
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,21 +32,52 @@ class ListingPosts {
         MainActivity::class.java
     )
 
-    @Test
-    fun shouldDisplayListOfPostsApp(){
-        onView(withId(R.id.tv_posted_by_info)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_elapsed_time)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_post_title)).check(matches(isDisplayed()))
+    @Before
+    fun setup() {
+        IdlingRegistry.getInstance().register(idlingResource)
+    }
+
+    @After
+    fun tearDown() {
+        IdlingRegistry.getInstance().unregister(idlingResource)
     }
 
     @Test
-    fun shouldDisplayDetailsFragmentWhenClickInItem(){
-        onView(withId(R.id.recyclerview_posts)).perform(
-            RecyclerViewActions
-                .actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                0, click()))
+    fun shouldDisplayListOfPostsApp(){
+        assertRecyclerViewItemCount(R.id.recyclerview_posts, 25)
 
-        onView(withId(R.id.button_second)).check(matches(isDisplayed()))
+        onView(allOf(withId(R.id.container_post_item),
+                isDescendantOfA(nthChildOf(withId(R.id.recyclerview_posts), 0))))
+                .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun displayLoaderWhileFetchItems(){
+        IdlingRegistry.getInstance().unregister(idlingResource)
+        assertDisplayed(R.id.loading)
+    }
+
+    @Test
+    fun hideLoaderWhenFetchItemsAreFinished(){
+        assertNotDisplayed(R.id.loading)
+    }
+
+    private fun nthChildOf(parentMatcher: Matcher<View>, childPosition: Int): Matcher<View> {
+        return object : TypeSafeMatcher<View>() {
+            override fun describeTo(description: Description) {
+                description.appendText("position $childPosition of parent ")
+                parentMatcher.describeTo(description)
+            }
+
+            public override fun matchesSafely(view: View): Boolean {
+                if (view.parent !is ViewGroup) return false
+                val parent = view.parent as ViewGroup
+
+                return (parentMatcher.matches(parent)
+                        && parent.childCount > childPosition
+                        && parent.getChildAt(childPosition) == view)
+            }
+        }
     }
 
 

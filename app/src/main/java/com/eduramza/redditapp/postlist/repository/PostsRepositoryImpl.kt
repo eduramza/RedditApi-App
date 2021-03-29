@@ -1,7 +1,7 @@
 package com.eduramza.redditapp.postlist.repository
 
 import com.eduramza.redditapp.domain.list.PostsDTO
-import com.eduramza.redditapp.postlist.PostListGenericException
+import com.eduramza.redditapp.utils.PostListGenericException
 import com.eduramza.redditapp.postlist.mapper.PostsMapper
 import com.eduramza.redditapp.service.RedditServiceApi
 import kotlinx.coroutines.flow.Flow
@@ -20,6 +20,17 @@ class PostsRepositoryImpl(
         }.catch {
             emit(Result.failure(
                 PostListGenericException("${it.message} There was a problem with the listing of posts")
+            ))
+        }
+    }
+
+    override suspend fun fetchNextPage(topic: String, afterPage: String): Flow<Result<List<PostsDTO>>> {
+        return flow {
+            val result = api.getListNextPage(topic, afterPage)
+            emit(Result.success(mapper.mapperResponseToView(result)))
+        }.catch {
+            emit(Result.failure(
+                    PostListGenericException("${it.message} There was a problem with the listing of posts")
             ))
         }
     }

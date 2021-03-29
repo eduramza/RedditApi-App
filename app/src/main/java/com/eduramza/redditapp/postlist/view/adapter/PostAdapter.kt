@@ -2,20 +2,16 @@ package com.eduramza.redditapp.postlist.view.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.eduramza.redditapp.R
 import com.eduramza.redditapp.databinding.PostItemBinding
 import com.eduramza.redditapp.domain.list.PostsDTO
-import com.eduramza.redditapp.downloadImageFromUrl
+import com.eduramza.redditapp.utils.downloadImageFromUrl
 
 class PostAdapter(
     private val postList: MutableList<PostsDTO>,
     private val context: Context,
-    private val listener: (String) -> Unit) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+    private val listener: PostAdapterListener) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemBinding =
@@ -33,8 +29,11 @@ class PostAdapter(
             binding.tvElapsedTime.text = item.elapsedTime
             binding.tvPostTitle.text = item.title
             binding.imgThumbnail.downloadImageFromUrl(context, item.thumbnailUrl)
+            binding.tvCommentsCount.text = item.numComments.toString()
 
-            binding.containerPostItem.setOnClickListener { listener(item.permalink) }
+            binding.containerPostItem.setOnClickListener { listener.clickItem(item.permalink) }
+            binding.imgShareIcon.setOnClickListener { listener.shareLink(item.permalink) }
+
             binding.imgThumbnail.contentDescription = "Image of ${item.title}"
         }
     }
@@ -47,5 +46,18 @@ class PostAdapter(
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(val binding: PostItemBinding): RecyclerView.ViewHolder(binding.root) { }
+    fun addList(items: List<PostsDTO>){
+        postList.addAll(items)
+        val listSet = postList.toSet()
+        postList.clear()
+        postList.addAll(listSet)
+        notifyDataSetChanged()
+    }
+
+    inner class ViewHolder(val binding: PostItemBinding): RecyclerView.ViewHolder(binding.root)
+
+    interface PostAdapterListener{
+        fun clickItem(permalink: String)
+        fun shareLink(permalink: String)
+    }
 }

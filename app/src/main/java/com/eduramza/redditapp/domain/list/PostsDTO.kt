@@ -5,5 +5,7 @@ data class PostsDTO(
     val author: String,
     val elapsedTime: String,
     val thumbnailUrl: String,
-    val permalink: String
+    val permalink: String,
+    val numComments: Int,
+    val after: String
 )

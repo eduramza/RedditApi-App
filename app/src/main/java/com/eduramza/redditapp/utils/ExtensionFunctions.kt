@@ -1,12 +1,10 @@
-package com.eduramza.redditapp
+package com.eduramza.redditapp.utils
 
 import android.content.Context
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import com.eduramza.redditapp.service.BASE_URL
 import java.sql.Date
-import java.text.SimpleDateFormat
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 const val DAYS_ON_THE_YEAR = 365
@@ -65,4 +63,8 @@ fun ImageView.downloadImageFromUrl(context: Context, url: String){
 }
 fun String.setCorrectJsonLink(): String{
     return "${this.substring(0, this.lastIndexOf("/"))}.json"
+}
+
+fun String.setCorrectShareLink(): String{
+    return this.replaceFirst("/", BASE_URL)
 }

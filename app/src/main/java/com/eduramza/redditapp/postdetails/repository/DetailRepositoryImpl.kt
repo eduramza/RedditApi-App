@@ -1,9 +1,9 @@
 package com.eduramza.redditapp.postdetails.repository
 
 import com.eduramza.redditapp.domain.detail.DetailRootResponse
-import com.eduramza.redditapp.postlist.PostListGenericException
+import com.eduramza.redditapp.utils.PostListGenericException
 import com.eduramza.redditapp.service.RedditServiceApi
-import com.eduramza.redditapp.setCorrectJsonLink
+import com.eduramza.redditapp.utils.setCorrectJsonLink
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow

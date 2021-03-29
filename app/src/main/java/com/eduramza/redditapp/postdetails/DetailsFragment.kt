@@ -3,10 +3,8 @@ package com.eduramza.redditapp.postdetails
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +12,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import com.eduramza.redditapp.R
 import com.eduramza.redditapp.databinding.DetailsPostFragmentBinding
 import com.eduramza.redditapp.domain.detail.DetailRootResponse
-import com.eduramza.redditapp.downloadImageFromUrl
+import com.eduramza.redditapp.utils.downloadImageFromUrl
 import com.eduramza.redditapp.postdetails.adapter.CommentsAdapter
 import com.eduramza.redditapp.postdetails.viewmodel.DetailViewModel
 import com.eduramza.redditapp.postlist.view.ListFragmentArgs
@@ -40,7 +38,6 @@ class DetailsFragment : Fragment() {
         _binding = DetailsPostFragmentBinding.bind(view)
 
         setupRecyclerView()
-
         setupObservers()
     }
 

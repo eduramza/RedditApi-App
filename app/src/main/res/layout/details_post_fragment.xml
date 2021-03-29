@@ -69,7 +69,17 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- comments count and shre icon is here -->
+        <TextView
+            android:id="@+id/tv_comment_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comments"
+            android:textColor="@color/black"
+            android:textStyle="italic"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/rv_comments"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_comments"
             android:layout_width="match_parent"

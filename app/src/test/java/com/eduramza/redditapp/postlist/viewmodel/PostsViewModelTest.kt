@@ -3,6 +3,7 @@ package com.eduramza.redditapp.postlist.viewmodel
 import com.eduramza.redditapp.domain.list.PostsDTO
 import com.eduramza.redditapp.postlist.repository.PostsRepository
 import com.eduramza.redditapp.utils.BaseTest
+import com.eduramza.redditapp.utils.captureValues
 import com.eduramza.redditapp.utils.getValueForTest
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
@@ -27,6 +28,8 @@ class PostsViewModelTest : BaseTest() {
 
         val viewModel = successCaseInitialize()
 
+        viewModel.getPostList(anyString())
+
         viewModel.posts.getValueForTest()
 
         verify(repository).fetchPosts(anyString())
@@ -36,13 +39,40 @@ class PostsViewModelTest : BaseTest() {
     fun emitValueFromLiveDataFromRepository() = runBlockingTest {
         val viewModel = successCaseInitialize()
 
+        viewModel.getPostList(anyString())
+
         assertEquals(expected, viewModel.posts.getValueForTest())
     }
 
     @Test
     fun emitErrorWhenRepositoryReturn() = runBlockingTest{
         val viewModel = mockErrorResponse()
+
+        viewModel.getPostList(anyString())
+
         assertEquals(genericError, viewModel.posts.getValueForTest()!!.exceptionOrNull())
+    }
+
+    @Test
+    fun updateLoadingWhenRequestCompleteWithSuccess() = runBlockingTest {
+        val viewModel = successCaseInitialize()
+
+        viewModel.loading.captureValues {
+            viewModel.getPostList(anyString())
+            assertEquals(true, values[0])
+            assertEquals(false, values[1])
+        }
+    }
+
+    @Test
+    fun updateLoadingWhenRequestCompleteWithFailure() = runBlockingTest {
+        val viewModel = mockErrorResponse()
+
+        viewModel.loading.captureValues {
+            viewModel.getPostList(anyString())
+            assertEquals(true, values[0])
+            assertEquals(false, values[1])
+        }
     }
 
     private fun mockErrorResponse(): PostsViewModel {

@@ -1,10 +1,8 @@
 package com.eduramza.redditapp.utils
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.eduramza.redditapp.postlist.PostListGenericException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Rule
-import java.lang.RuntimeException
 
 @ExperimentalCoroutinesApi
 open class BaseTest {

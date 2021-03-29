@@ -1,4 +1,4 @@
-package com.eduramza.redditapp.postlist
+package com.eduramza.redditapp.utils
 
 import java.lang.RuntimeException
 
