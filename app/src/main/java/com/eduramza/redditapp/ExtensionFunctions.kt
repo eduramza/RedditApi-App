@@ -3,6 +3,7 @@ package com.eduramza.redditapp
 import android.content.Context
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
@@ -58,7 +59,8 @@ fun getRelativeAgo(toDays: Long, period: Int) = toDays / period
 fun ImageView.downloadImageFromUrl(context: Context, url: String){
     if (url != "null") {
         Glide.with(context)
-            .load(url).into(this)
+                .load(url)
+                .into(this)
     }
 }
 fun String.setCorrectJsonLink(): String{

@@ -67,10 +67,38 @@ class ListFragment : Fragment() {
         viewModel.posts.observe(this as LifecycleOwner, { posts ->
             if (posts.isSuccess && posts.getOrNull() != null) {
                 adapter.updateList(posts.getOrNull()!! as MutableList<PostsDTO>)
+                showList()
             } else {
                 showError()
             }
         })
+        viewModel.loading.observe(this as LifecycleOwner, {
+            if (it){
+                showLoading()
+            } else {
+                hideLoading()
+            }
+        })
+    }
+
+    private fun showList(){
+        _binding?.let {
+            it.recyclerviewPosts.visibility = VISIBLE
+        }
+    }
+
+    private fun showLoading(){
+        _binding?.let {
+            it.loading.visibility = VISIBLE
+            it.containerError.root.visibility = GONE
+            it.recyclerviewPosts.visibility = GONE
+        }
+    }
+
+    private fun hideLoading(){
+        _binding?.let {
+            it.loading.visibility = GONE
+        }
     }
 
     private fun showError() {

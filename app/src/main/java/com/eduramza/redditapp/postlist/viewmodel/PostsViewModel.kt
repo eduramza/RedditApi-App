@@ -12,12 +12,18 @@ class PostsViewModel(private val repository: PostsRepository) : ViewModel(){
     val posts: LiveData<Result<List<PostsDTO>>>
         get() =_posts
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean>
+        get() = _loading
+
     fun getPostList(q: String){
         viewModelScope.launch {
+            _loading.postValue(true)
             repository.fetchPosts(q)
                 .collect {
                     _posts.value = it
                 }
+            _loading.postValue(false)
         }
     }
 

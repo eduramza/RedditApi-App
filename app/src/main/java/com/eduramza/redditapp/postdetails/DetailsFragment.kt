@@ -69,10 +69,35 @@ class DetailsFragment : Fragment() {
                 updatePostBodyUI(resultHeader)
                 commentsAdapter.updateList(resultBody
                         as MutableList<DetailRootResponse.PostDetailData.Data.Children>)
+                showContent()
             } else {
                 showError()
             }
         })
+
+        viewModel.loading.observe(this as LifecycleOwner, {
+            if(it) showLoading() else hideLoading()
+        })
+    }
+
+    private fun showContent(){
+        _binding?.let {
+            it.containerPostDetail.visibility = View.VISIBLE
+        }
+    }
+
+    private fun showLoading(){
+        _binding?.let {
+            it.loadingDetail.visibility = View.VISIBLE
+            it.containerPostDetail.visibility = View.GONE
+            it.containerErrorDetail.root.visibility = View.GONE
+        }
+    }
+
+    private fun hideLoading(){
+        _binding?.let {
+            it.loadingDetail.visibility = View.GONE
+        }
     }
 
     private fun showError(){
