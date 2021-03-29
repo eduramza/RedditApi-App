@@ -20,8 +20,6 @@ import com.eduramza.redditapp.postdetails.viewmodel.DetailViewModel
 import com.eduramza.redditapp.postlist.view.ListFragmentArgs
 import com.eduramza.redditapp.service.BASE_URL
 
-const val KIND_POST_DETAIL_HEADER = "t3"
-
 class DetailsFragment : Fragment() {
 
     private val viewModel: DetailViewModel by viewModel()
@@ -72,18 +70,23 @@ class DetailsFragment : Fragment() {
                 commentsAdapter.updateList(resultBody
                         as MutableList<DetailRootResponse.PostDetailData.Data.Children>)
             } else {
-                //TODO THROWN ERROR
+                showError()
             }
         })
     }
 
-    private fun updatePostBodyUI(result: List<DetailRootResponse.PostDetailData.Data.Children>) {
-        if( result[0].kind == KIND_POST_DETAIL_HEADER){
-            _binding?.tvDetailTitle?.text = result[0].data.title
-            _binding?.tvDetailAuthorAndElapsed?.text = result[0].data.author
-            _binding?.imgDetailThumbnail?.downloadImageFromUrl(
-                requireContext(), result[0].data.thumbnail)
+    private fun showError(){
+        _binding?.let {
+            it.containerPostDetail.visibility = View.GONE
+            it.containerErrorDetail.root.visibility = View.VISIBLE
         }
+    }
+
+    private fun updatePostBodyUI(result: List<DetailRootResponse.PostDetailData.Data.Children>) {
+        _binding?.tvDetailTitle?.text = result[0].data.title
+        _binding?.tvDetailAuthorAndElapsed?.text = result[0].data.author
+        _binding?.imgDetailThumbnail?.downloadImageFromUrl(
+            requireContext(), result[0].data.thumbnail)
     }
 
 }

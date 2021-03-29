@@ -16,7 +16,6 @@ class PostsMapper {
                 elapsedTime = it.data.createdUtc.getRelativeTimeStamp(),
                 thumbnailUrl = getThumbnailUrl(it.data.thumbnail,
                                         it.data.secureMedia?.oembed?.thumbnailUrl).toString(),
-                //it.data.secureMedia?.oembed?.thumbnailUrl.toString(),
                 permalink = it.data.permalink
             )
         }

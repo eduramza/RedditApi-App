@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.SearchView
@@ -31,6 +32,7 @@ class ListFragment : Fragment() {
 
     private lateinit var adapter: PostAdapter
     private val viewModel: PostsViewModel by viewModel()
+    private var _binding: ListFragmentBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,17 +48,19 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = ListFragmentBinding.bind(view)
+        _binding = ListFragmentBinding.bind(view)
 
         adapter = PostAdapter(mutableListOf(), requireContext()) {
             val action = ListFragmentDirections.openDetailsFragment(it)
             findNavController().navigate(action)
         }
 
-        binding.recyclerviewPosts.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerviewPosts.adapter = adapter
-
+        _binding?.let{
+            it.recyclerviewPosts.layoutManager = LinearLayoutManager(requireContext())
+            it.recyclerviewPosts.adapter = adapter
+        }
         setupObservers()
+
     }
 
     private fun setupObservers(){
@@ -64,9 +68,16 @@ class ListFragment : Fragment() {
             if (posts.isSuccess && posts.getOrNull() != null) {
                 adapter.updateList(posts.getOrNull()!! as MutableList<PostsDTO>)
             } else {
-                //TODO ERROR SCREEN
+                showError()
             }
         })
+    }
+
+    private fun showError() {
+        _binding?.let {
+            it.containerError.root.visibility = VISIBLE
+            it.recyclerviewPosts.visibility = GONE
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

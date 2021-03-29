@@ -19,4 +19,11 @@
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/post_item" />
 
+    <include
+        android:id="@+id/container_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/generic_error"
+        android:visibility="gone" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

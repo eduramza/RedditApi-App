@@ -2,6 +2,7 @@ package com.eduramza.redditapp.postlist.view.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
@@ -32,7 +33,9 @@ class PostAdapter(
             binding.tvElapsedTime.text = item.elapsedTime
             binding.tvPostTitle.text = item.title
             binding.imgThumbnail.downloadImageFromUrl(context, item.thumbnailUrl)
+
             binding.containerPostItem.setOnClickListener { listener(item.permalink) }
+            binding.imgThumbnail.contentDescription = "Image of ${item.title}"
         }
     }
 

@@ -12,6 +12,14 @@
     <string name="posted_by">Posted By u/Microsoft_Azure</string>
     <string name="elapsed_time_example">3 months ago</string>
     <string name="post_title_example">Free Softwares advocates seek removal of Richard Stallman and entire FSF Board</string>
+    <string name="error_info_message">Ooops! \n Sorry but we had a problem with your search,
+        check your connection and try again  ;)</string>
+    <string name="image_alert_error">Image alert error</string>
+    <string name="author_example">Jose da Silva a 1m atrás</string>
+    <string name="comment_info_example">The comment come here</string>
+    <string name="author_reply_example">DragonClypson 17 hours ago</string>
+    <string name="reply_comment_example">Reply comment in here!</string>
+    <string name="continue_this_thread"><![CDATA[Continue this Thread ->]]></string>
 
     <string-array name="subreddits_array">
         <item>Home</item>
