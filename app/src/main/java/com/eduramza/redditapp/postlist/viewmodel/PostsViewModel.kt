@@ -18,7 +18,7 @@ class PostsViewModel(private val repository: PostsRepository) : ViewModel(){
 
     private val _next = MutableLiveData<Result<List<PostsDTO>>>()
     val next: LiveData<Result<List<PostsDTO>>>
-        get() =_posts
+        get() =_next
 
     fun getPostList(q: String){
         viewModelScope.launch {

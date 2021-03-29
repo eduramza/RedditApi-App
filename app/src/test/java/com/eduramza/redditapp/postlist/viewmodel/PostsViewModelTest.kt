@@ -36,12 +36,30 @@ class PostsViewModelTest : BaseTest() {
     }
 
     @Test
+    fun shouldCallRepositoryMethodForCallNextPage() = runBlockingTest{
+        val viewModel = mockSuccessNext()
+
+        viewModel.getNextPage(anyString(), anyString())
+        viewModel.next.getValueForTest()
+        verify(repository).fetchNextPage(anyString(), anyString())
+    }
+
+    @Test
     fun emitValueFromLiveDataFromRepository() = runBlockingTest {
         val viewModel = successCaseInitialize()
 
         viewModel.getPostList(anyString())
 
         assertEquals(expected, viewModel.posts.getValueForTest())
+    }
+
+    @Test
+    fun emitValueFromLiveDataFromRepositoryForNext() = runBlockingTest{
+        val viewModel = mockSuccessNext()
+
+        viewModel.getNextPage(anyString(), anyString())
+
+        assertEquals(expected, viewModel.next.getValueForTest())
     }
 
     @Test
@@ -93,6 +111,18 @@ class PostsViewModelTest : BaseTest() {
                 flow {
                     emit(expected)
                 }
+            )
+        }
+
+        return PostsViewModel(repository)
+    }
+
+    private fun mockSuccessNext(): PostsViewModel {
+        runBlocking {
+            whenever(repository.fetchNextPage(anyString(), anyString())).thenReturn(
+                    flow {
+                        emit(expected)
+                    }
             )
         }
 
