@@ -12,4 +12,34 @@
     <string name="posted_by">Posted By u/Microsoft_Azure</string>
     <string name="elapsed_time_example">3 months ago</string>
     <string name="post_title_example">Free Softwares advocates seek removal of Richard Stallman and entire FSF Board</string>
+
+    <string-array name="subreddits_array">
+        <item>Home</item>
+        <item>Wallstreetbets</item>
+        <item>Funny</item>
+        <item>Minecraft on reddit</item>
+        <item>League of Playing with Dolls</item>
+        <item>Memes the original since 2008</item>
+        <item>Movie News and Discussion</item>
+        <item>Politics</item>
+        <item>Anime</item>
+        <item>Genshin Impact Official</item>
+        <item>Interesting As Fuck</item>
+        <item>Personal Finance</item>
+        <item>Today I Learned (TIL)</item>
+        <item>World News</item>
+        <item>One Piece</item>
+        <item>News</item>
+        <item>Reddit Pics</item>
+        <item>Twitch</item>
+        <item>Gaming</item>
+        <item>GameStop Stock</item>
+        <item>Programming</item>
+        <item>Bitcoin</item>
+        <item>World of Warcraft</item>
+        <item>Formula 1</item>
+        <item>Relationships</item>
+        <item>NBA</item>
+    </string-array>
+
 </resources>

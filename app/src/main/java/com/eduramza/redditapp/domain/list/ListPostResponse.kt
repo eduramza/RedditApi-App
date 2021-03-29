@@ -187,7 +187,7 @@ data class ListPostResponse(
                 @SerializedName("score")
                 val score: Int,
                 @SerializedName("secure_media")
-                val secureMedia: Any?,
+                val secureMedia: SecureMedia?,
                 @SerializedName("secure_media_embed")
                 val secureMediaEmbed: SecureMediaEmbed,
                 @SerializedName("selftext")
