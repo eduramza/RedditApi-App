@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.eduramza.redditapp.databinding.CommentItemBinding
 import com.eduramza.redditapp.domain.detail.DetailRootResponse.PostDetailData
 import com.eduramza.redditapp.domain.detail.Replies
+import com.eduramza.redditapp.getRelativeTimeStamp
 import com.google.gson.internal.LinkedTreeMap
 import java.util.ArrayList
 
@@ -32,7 +33,10 @@ class CommentsAdapter(
                 binding.tvCommentReplyBody.text = bodyR
             }
 
-            binding.tvCommentAuthorAndElapsed.text = comment.author
+            "${comment.author} ${comment.createdUtc.getRelativeTimeStamp()}".also {
+                binding.tvCommentAuthorAndElapsed.text = it
+            }
+
             binding.tvCommentBody.text = comment.body
             binding.tvRedirectToThread.setOnClickListener {
                 detailListener(comment.permalink)
@@ -48,7 +52,12 @@ class CommentsAdapter(
         val children1 = children.get("data") as LinkedTreeMap<Object, Object>
         val authorT = children1.get("author").toString()
         val bodyT = children1.get("body").toString()
-        return Pair(authorT, bodyT)
+        val createdUtc: Double? = children1.get("created_utc") as Double?
+        return if(authorT == "null") Pair("", "") else {
+            Pair(
+                    "$authorT ${createdUtc?.getRelativeTimeStamp()}",
+                    bodyT )
+        }
     }
 
     override fun getItemCount() = comments.size

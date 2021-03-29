@@ -45,7 +45,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_comment_body"
-            android:text="@string/author_reply_example"
             android:textSize="@dimen/text_author_comment_size"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp" />
@@ -57,7 +56,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_comment_reply_author"
-            android:text="@string/reply_comment_example"
             android:textSize="@dimen/text_reply_size"
             android:layout_marginStart="30dp"/>
 
@@ -73,16 +71,6 @@
             android:textColor="@android:color/holo_orange_dark"
             android:layout_marginTop="10dp"
             android:layout_marginStart="30dp"/>
-
-<!--        <View-->
-<!--            android:id="@+id/view_separator"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="1dp"-->
-<!--            android:background="@android:color/darker_gray"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/tv_redirect_to_thread"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            android:layout_marginTop="10dp" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -8,9 +8,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
+const val DAYS_ON_THE_YEAR = 365
+const val DAYS_ON_THE_MONTH = 30
+
 fun Double.getRelativeTimeStamp(): String {
     val date = Date(this.toLong()*1000L)
-    //val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
     val now = System.currentTimeMillis()
     return timeAgo(date.time, now)
 }
@@ -25,12 +27,12 @@ fun timeAgo(createdUtc: Long, now: Long): String {
 
     val toHours = TimeUnit.MILLISECONDS.toHours(diff)
     if (toHours > 0){
-        return "$toHours hour(s) ago"
+        return "$toHours hours ago"
     }
 
     val toMinutes = TimeUnit.MILLISECONDS.toMinutes(diff)
     return if (toMinutes > 0){
-        "$toMinutes minute(s) ago"
+        "$toMinutes minutes ago"
     } else {
         "just now"
     }
@@ -50,9 +52,6 @@ private fun returnDays(toDays: Long): String {
         else -> ""
     }
 }
-
-const val DAYS_ON_THE_YEAR = 365
-const val DAYS_ON_THE_MONTH = 30
 
 fun getRelativeAgo(toDays: Long, period: Int) = toDays / period
 
