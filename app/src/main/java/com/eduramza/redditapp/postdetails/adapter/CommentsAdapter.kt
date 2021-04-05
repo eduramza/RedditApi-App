@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.eduramza.redditapp.databinding.CommentItemBinding
 import com.eduramza.redditapp.domain.detail.DetailRootResponse.PostDetailData
 import com.eduramza.redditapp.domain.detail.Replies
-import com.eduramza.redditapp.utils.getRelativeTimeStamp
+import com.eduramza.relativetime.RelativeTimeAgo
 import com.google.gson.internal.LinkedTreeMap
 import java.util.ArrayList
 
@@ -33,7 +33,7 @@ class CommentsAdapter(
                 binding.tvCommentReplyBody.text = bodyR
             }
 
-            "${comment.author} ${comment.createdUtc.getRelativeTimeStamp()}".also {
+            "${comment.author} ${RelativeTimeAgo.relativeUnixTimePast(comment.createdUtc.toLong())}".also {
                 binding.tvCommentAuthorAndElapsed.text = it
             }
 
@@ -54,7 +54,7 @@ class CommentsAdapter(
         val bodyT = children1.get("body").toString()
         val createdUtc: Double? = children1.get("created_utc") as Double?
         return if(authorT == "null") Pair("", "") else {
-            Pair("$authorT ${createdUtc?.getRelativeTimeStamp()}", bodyT )
+            Pair("$authorT ${RelativeTimeAgo.relativeUnixTimePast(createdUtc!!.toLong())}", bodyT )
         }
     }
 

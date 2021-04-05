@@ -2,7 +2,8 @@ package com.eduramza.redditapp.postlist.mapper
 
 import com.eduramza.redditapp.domain.list.ListPostResponse
 import com.eduramza.redditapp.domain.list.PostsDTO
-import com.eduramza.redditapp.utils.getRelativeTimeStamp
+import com.eduramza.relativetime.LanguageType
+import com.eduramza.relativetime.RelativeTimeAgo
 
 class PostsMapper {
 
@@ -12,7 +13,7 @@ class PostsMapper {
             PostsDTO(
                     title = it.data.title,
                     author = it.data.author,
-                    elapsedTime = it.data.createdUtc.getRelativeTimeStamp(),
+                    elapsedTime = RelativeTimeAgo.relativeUnixTimePast(it.data.createdUtc.toLong()),
                     thumbnailUrl = getThumbnailUrl(it.data.thumbnail,
                                         it.data.secureMedia?.oembed?.thumbnailUrl).toString(),
                     permalink = it.data.permalink,
