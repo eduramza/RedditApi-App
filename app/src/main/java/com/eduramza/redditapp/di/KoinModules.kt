@@ -1,5 +1,6 @@
 package com.eduramza.redditapp.di
 
+import com.eduramza.redditapp.postdetails.mapper.DetailMapper
 import com.eduramza.redditapp.postdetails.repository.DetailRepository
 import com.eduramza.redditapp.postdetails.repository.DetailRepositoryImpl
 import com.eduramza.redditapp.postdetails.viewmodel.DetailViewModel
@@ -17,6 +18,7 @@ val appModule = module {
     single<PostsRepository> { PostsRepositoryImpl(get(), get()) }
     viewModel { PostsViewModel(get()) }
 
-    single<DetailRepository> { DetailRepositoryImpl(get()) }
+    single { DetailMapper() }
+    single<DetailRepository> { DetailRepositoryImpl(get(), get()) }
     viewModel { DetailViewModel(get()) }
 }

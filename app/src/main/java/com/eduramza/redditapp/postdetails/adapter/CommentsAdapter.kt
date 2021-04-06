@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.eduramza.redditapp.databinding.CommentItemBinding
+import com.eduramza.redditapp.domain.detail.Comment
 import com.eduramza.redditapp.domain.detail.DetailRootResponse.PostDetailData
-import com.eduramza.redditapp.domain.detail.Replies
 import com.eduramza.relativetime.RelativeTimeAgo
 import com.google.gson.internal.LinkedTreeMap
 import java.util.ArrayList
@@ -47,7 +47,7 @@ class CommentsAdapter(
     private fun getReplies(comment: PostDetailData.Data.Children.PostDetail): Pair<String, String> {
         val lv1 = comment.replies as LinkedTreeMap<Object, Object>
         val lv2 = lv1.get("data") as LinkedTreeMap<Object, Object>
-        val lv3 = lv2.get("children") as ArrayList<Replies.Data.Children>
+        val lv3 = lv2.get("children") as ArrayList<Comment.Data.Children>
         val children = lv3[0] as LinkedTreeMap<Object, Object>
         val children1 = children.get("data") as LinkedTreeMap<Object, Object>
         val authorT = children1.get("author").toString()
